@@ -4,6 +4,7 @@ import Home from '../Home'
 import { SafeAreaView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Signup from '../Signup'
+import Login from '../Login'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
@@ -16,6 +17,11 @@ const Navigator = () => {
           <Stack.Screen
             name='Signup'
             component={Signup}
+            options={{ animation: 'fade_from_bottom' }}
+          />
+          <Stack.Screen
+            name='Login'
+            component={Login}
             options={{ animation: 'fade_from_bottom' }}
           />
         </Stack.Navigator>

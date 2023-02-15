@@ -24,7 +24,7 @@ const Home = () => {
       <Tab.Screen
         name='Tramites'
         component={Tramites}
-        options={{ tabBarIcon: 'file' }}
+        options={{ tabBarIcon: 'file', title: 'Trámites' }}
       />
       <Tab.Screen
         name='Contacto'
