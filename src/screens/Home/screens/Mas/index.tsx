@@ -52,6 +52,15 @@ const Mas = () => {
           />
           <Divider />
           <Item
+            title={'Dispositivos'}
+            right={() => <Icon icon={'chevron-right'} />}
+          />
+          <Item
+            title={'Sistema'}
+            right={() => <Icon icon={'chevron-right'} />}
+          />
+          <Divider />
+          <Item
             title={'Cerrar sesión'}
             right={() => <Icon icon={'logout'} />}
             onPress={() => {

@@ -19,6 +19,7 @@ import { IAuthUserAction } from '~/store/reducers/authUser'
 import { Dispatch } from '@reduxjs/toolkit'
 import { IValidateToken } from '~/types'
 import { IRootState } from '~/store/reducers'
+import useVisible from '~/hooks/useVisible'
 
 const url = 'auth'
 
@@ -49,6 +50,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<ICreate> = (x) => {
     mutation.mutate(x)
   }
+  const pass = useVisible()
   return (
     <>
       <Appbar>
@@ -73,8 +75,13 @@ const Login = () => {
                 name='password'
                 label='Contraseña'
                 rules={{ required: { value: true, message: 'Requerido' } }}
-                secureTextEntry
-                right={<TextInput.Icon icon='eye' />}
+                secureTextEntry={!pass.visible}
+                right={
+                  <TextInput.Icon
+                    icon={pass.visible ? 'eye' : 'eye-off'}
+                    onPress={pass.change}
+                  />
+                }
                 left={<TextInput.Icon icon='lock' />}
               />
 

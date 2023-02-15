@@ -6,5 +6,7 @@ export type RootStackParamList = {
   Signup: undefined
   Login: undefined
   Utilidades: undefined
+  Liquidacion: undefined
+  Jubilacion: undefined
   Feed: { sort: 'latest' | 'top' } | undefined
 }

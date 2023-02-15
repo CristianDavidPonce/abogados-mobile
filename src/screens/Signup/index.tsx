@@ -9,6 +9,7 @@ import { RootStackParamList } from '../Navigator/types'
 import { ICreate, IGetOptions } from './types'
 import { useCreateOne, useGetOptions } from '~/rest'
 import config from '~/config'
+import useVisible from '~/hooks/useVisible'
 
 const url = 'register'
 
@@ -23,12 +24,14 @@ const Signup = () => {
   })
   const mutation = useCreateOne<ICreate>({
     url,
-    onError: (e) => console.log(e),
+    onSuccess: () => navigation.navigate('Login'),
   })
   const onSubmit: SubmitHandler<ICreate> = (x) => {
     mutation.mutate(x)
   }
   const options = useGetOptions<IGetOptions>({ url })
+  const pass = useVisible()
+  const pass1 = useVisible()
   return (
     <>
       <Appbar>
@@ -93,8 +96,13 @@ const Signup = () => {
                 name='password'
                 label='Contraseña'
                 rules={{ required: { value: true, message: 'Requerido' } }}
-                secureTextEntry
-                right={<TextInput.Icon icon='eye' />}
+                secureTextEntry={!pass.visible}
+                right={
+                  <TextInput.Icon
+                    icon={pass.visible ? 'eye' : 'eye-off'}
+                    onPress={pass.change}
+                  />
+                }
                 left={<TextInput.Icon icon='lock' />}
               />
               <Input
@@ -107,8 +115,13 @@ const Signup = () => {
                       ? true
                       : 'Las contraseñas no coinciden.',
                 }}
-                secureTextEntry
-                right={<TextInput.Icon icon='eye' />}
+                secureTextEntry={!pass1.visible}
+                right={
+                  <TextInput.Icon
+                    icon={pass1.visible ? 'eye' : 'eye-off'}
+                    onPress={pass1.change}
+                  />
+                }
                 left={<TextInput.Icon icon='lock' />}
               />
               <Button

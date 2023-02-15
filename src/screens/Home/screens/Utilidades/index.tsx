@@ -1,8 +1,15 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
 import { ScrollView, Text } from 'react-native'
 import { Appbar, Button, Card, useTheme } from 'react-native-paper'
+import { RootStackParamList } from '~/screens/Navigator/types'
 
 const Utilidades = () => {
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, 'Liquidacion'>
+    >()
   const theme = useTheme()
   return (
     <>
@@ -19,7 +26,11 @@ const Utilidades = () => {
             <Text>Calcule su liquidacion laboral</Text>
           </Card.Content>
 
-          <Button mode='contained' style={{ margin: 14 }}>
+          <Button
+            mode='contained'
+            style={{ margin: 14 }}
+            onPress={() => navigation.navigate('Liquidacion')}
+          >
             Calcular
           </Button>
         </Card>
@@ -32,7 +43,11 @@ const Utilidades = () => {
             <Text>Calcule el valor de su jubilacion patronal</Text>
           </Card.Content>
 
-          <Button mode='contained' style={{ margin: 14 }}>
+          <Button
+            mode='contained'
+            style={{ margin: 14 }}
+            onPress={() => navigation.navigate('Jubilacion')}
+          >
             Calcular
           </Button>
         </Card>

@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Signup from '../Signup'
 import Login from '../Login'
+import Liquidacion from '../Home/screens/Utilidades/screens/Liquidacion'
+import Jubilación from '../Home/screens/Utilidades/screens/Jubilacion'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
@@ -22,6 +24,16 @@ const Navigator = () => {
           <Stack.Screen
             name='Login'
             component={Login}
+            options={{ animation: 'fade_from_bottom' }}
+          />
+          <Stack.Screen
+            name='Liquidacion'
+            component={Liquidacion}
+            options={{ animation: 'fade_from_bottom' }}
+          />
+          <Stack.Screen
+            name='Jubilacion'
+            component={Jubilación}
             options={{ animation: 'fade_from_bottom' }}
           />
         </Stack.Navigator>
