@@ -76,12 +76,15 @@ const DatePicker = (props: IProps) => {
         label={label}
         disabled={disabled}
         returnKeyType='next'
-        value={moment(field.value).format('YYYY-MM-DD')}
+        value={field.value && moment(field.value).format('YYYY-MM-DD')}
         onChangeText={field.onChange}
         error={errors}
         onBlur={field.onBlur}
         ref={innerRef}
         autoCapitalize={'none'}
+        right={
+          <TextInput.Icon icon={'calendar'} onPress={() => setShow(true)} />
+        }
         editable={false}
         {...res}
       />
@@ -121,7 +124,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    marginTop: -63,
+    marginTop: -55,
+    marginBottom: 5,
   },
   help: {
     flex: 1,
@@ -130,6 +134,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   touch: {
-    height: 56,
+    height: 55,
   },
 })

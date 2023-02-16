@@ -11,7 +11,6 @@ interface IProps
   name: string
   mode?: 'flat' | 'outlined'
   defaultValue?: string
-  setFormError?: any
   optional?: boolean
   description?: string
   disabled?: boolean
@@ -45,7 +44,7 @@ const Input = (props: IProps) => {
       />
 
       {description !== undefined && !errors ? (
-        <View style={styles.help}>
+        <View style={styles.help2}>
           <HelperText type='info'>{description}</HelperText>
         </View>
       ) : null}
@@ -78,6 +77,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: -8,
+  },
+  help2: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: -8,
   },

@@ -212,7 +212,6 @@ export const useCreateOne = <T,>({
 }) => {
   const dispatch = useDispatch<Dispatch<ISnackAction>>()
   const queryClient = useQueryClient()
-  console.log(host.host + url)
   return useMutation<IWriteSuccess, AxiosError<IError, T>, T>(
     async (values) => {
       const { data } = await axios.post<IWriteSuccess>(

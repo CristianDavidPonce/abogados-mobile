@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
-import { ScrollView, Text } from 'react-native'
-import { Appbar, Button, Card, useTheme } from 'react-native-paper'
+import { ScrollView } from 'react-native'
+import { Appbar, Button, Card, Text, useTheme } from 'react-native-paper'
 import { RootStackParamList } from '~/screens/Navigator/types'
 
 const Utilidades = () => {

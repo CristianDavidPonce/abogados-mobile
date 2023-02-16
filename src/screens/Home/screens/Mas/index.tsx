@@ -1,4 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit'
+import { useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { Appbar, Avatar, Divider, List, useTheme } from 'react-native-paper'
@@ -6,14 +7,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import NoValidated from '~/components/Utils/NoValidated'
 import { IRootState } from '~/store/reducers'
 import { IAuthUserAction } from '~/store/reducers/authUser'
+import { IType } from '~/store/reducers/mode'
 const { Item, Icon } = List
 const Mas = () => {
   const user = useSelector<IRootState, IRootState['authUser']>(
     (x) => x.authUser
   )
   const dispatch = useDispatch<Dispatch<IAuthUserAction>>()
-
+  const client = useQueryClient()
   const theme = useTheme()
+  const tema = useDispatch<Dispatch<IType>>()
   return (
     <>
       <Appbar>
@@ -52,6 +55,11 @@ const Mas = () => {
           />
           <Divider />
           <Item
+            title={'Cambiar Tema'}
+            right={() => <Icon icon={'theme-light-dark'} />}
+            onPress={() => tema({ type: 'TOGGLE_THEME' })}
+          />
+          <Item
             title={'Dispositivos'}
             right={() => <Icon icon={'chevron-right'} />}
           />
@@ -64,6 +72,8 @@ const Mas = () => {
             title={'Cerrar sesión'}
             right={() => <Icon icon={'logout'} />}
             onPress={() => {
+              client.invalidateQueries(['validatedash'])
+              client.clear()
               dispatch({ type: 'resetAuth' })
             }}
           />
