@@ -8,5 +8,6 @@ export type RootStackParamList = {
   Utilidades: undefined
   Liquidacion: undefined
   Jubilacion: undefined
+  TramiteDetail: { _id: string; name: string }
   Feed: { sort: 'latest' | 'top' } | undefined
 }

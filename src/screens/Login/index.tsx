@@ -20,6 +20,8 @@ import { Dispatch } from '@reduxjs/toolkit'
 import { IValidateToken } from '~/types'
 import { IRootState } from '~/store/reducers'
 import useVisible from '~/hooks/useVisible'
+import config from '~/config'
+import Alerta from '~/components/Utils/Alerta'
 
 const url = 'auth'
 
@@ -48,7 +50,7 @@ const Login = () => {
     },
   })
   const onSubmit: SubmitHandler<ICreate> = (x) => {
-    mutation.mutate(x)
+    mutation.mutate({ ...x, business: config.business })
   }
   const pass = useVisible()
   return (
@@ -84,7 +86,14 @@ const Login = () => {
                 }
                 left={<TextInput.Icon icon='lock' />}
               />
-
+              {mutation.isError && (
+                <Alerta
+                  value={
+                    mutation.error.response?.data.message ||
+                    mutation.error.message
+                  }
+                />
+              )}
               <Button
                 mode='contained'
                 onPress={form.handleSubmit(onSubmit)}

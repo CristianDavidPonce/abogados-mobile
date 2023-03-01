@@ -264,7 +264,7 @@ const Display = ({ label, value, result = false, money = false }: IDisplay) => {
       <Text
         variant={result ? 'titleLarge' : 'labelLarge'}
         style={{
-          color: result ? theme.colors.error : 'default',
+          color: result ? theme.colors.error : theme.colors.onBackground,
           fontWeight: result ? 'bold' : 'normal',
         }}
       >{`${money ? '$ ' : ''}${value.toFixed(2)}`}</Text>

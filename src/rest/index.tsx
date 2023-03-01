@@ -26,9 +26,15 @@ export const useGet = <T,>({
   enabled?: boolean
   key?: string
 }) => {
+  const user = useSelector<IRootState, IRootState['authUser']>(
+    (x) => x.authUser
+  )
   const getTable = async (params?: IQueries) => {
     const { data } = await axios.get(host.host + url, {
       params: { ...params?.params, ...params?.filters },
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     })
     return data
   }
@@ -78,7 +84,7 @@ export const useGetOne = <T,>({
   )
   const getOne = async (_id?: string) => {
     const { data } = await axios.get<T>(
-      _id ? `${host.host + url + url}/${_id}` : `${host.host + url}`,
+      _id ? `${host.host + url}/${_id}` : `${host.host + url}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -122,10 +128,18 @@ export const useGetOptions = <T,>({
   onSuccess?: (data: T) => void
 }) => {
   const dispatch = useDispatch<Dispatch<ISnackAction>>()
+  const user = useSelector<IRootState, IRootState['authUser']>(
+    (x) => x.authUser
+  )
 
   const getTable = async () => {
     const { data } = await axios.get(
-      noUrl ? host.host + url : host.host + url + '/get-options'
+      noUrl ? host.host + url : host.host + url + '/get-options',
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
     )
     return data
   }

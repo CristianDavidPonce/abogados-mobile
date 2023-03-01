@@ -10,6 +10,7 @@ import { ICreate, IGetOptions } from './types'
 import { useCreateOne, useGetOptions } from '~/rest'
 import config from '~/config'
 import useVisible from '~/hooks/useVisible'
+import Alerta from '~/components/Utils/Alerta'
 
 const url = 'register'
 
@@ -124,6 +125,14 @@ const Signup = () => {
                 }
                 left={<TextInput.Icon icon='lock' />}
               />
+              {mutation.isError && (
+                <Alerta
+                  value={
+                    mutation.error.response?.data.message ||
+                    mutation.error.message
+                  }
+                />
+              )}
               <Button
                 mode='contained'
                 onPress={form.handleSubmit(onSubmit)}

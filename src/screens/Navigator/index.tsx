@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '~/store/reducers'
 import { darkTheme, theme } from '~/core/theme'
 import { NavigationContainer } from '@react-navigation/native'
+import Detail from '../Home/screens/Tramites/Detail'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
@@ -49,6 +50,11 @@ const Navigator = () => {
             <Stack.Screen
               name='Jubilacion'
               component={Jubilación}
+              options={{ animation: 'fade_from_bottom' }}
+            />
+            <Stack.Screen
+              name='TramiteDetail'
+              component={Detail}
               options={{ animation: 'fade_from_bottom' }}
             />
           </Stack.Navigator>
