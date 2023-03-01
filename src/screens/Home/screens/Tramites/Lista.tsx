@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, RefreshControl, View } from 'react-native'
 import { Chip, Divider, List, ProgressBar } from 'react-native-paper'
 import Alerta from '~/components/Utils/Alerta'
 import NoResult from '~/components/Utils/NoResult'
@@ -32,6 +32,9 @@ const Lista = () => {
       <FlatList
         data={data.data?.data}
         keyExtractor={(x) => x._id}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={() => data.refetch()} />
+        }
         renderItem={({ item }) => (
           <View>
             <List.Item

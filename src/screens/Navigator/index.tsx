@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from '../Home'
-import { Platform, SafeAreaView } from 'react-native'
+import { Platform, SafeAreaView, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Signup from '../Signup'
 import Login from '../Login'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { Button, Provider as PaperProvider, Text } from 'react-native-paper'
 import Liquidacion from '../Home/screens/Utilidades/screens/Liquidacion'
 import Jubilación from '../Home/screens/Utilidades/screens/Jubilacion'
 import Snack from '~/components/Utils/SnackBar'
@@ -14,6 +14,8 @@ import { IRootState } from '~/store/reducers'
 import { darkTheme, theme } from '~/core/theme'
 import { NavigationContainer } from '@react-navigation/native'
 import Detail from '../Home/screens/Tramites/Detail'
+import * as Updates from 'expo-updates'
+import System from '../System'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
@@ -21,6 +23,20 @@ const Navigator = () => {
     (x) => x.modeReducer
   )
   const tema = mode.isDark ? darkTheme : theme
+  const [update, setUpdate] = useState(false)
+  useEffect(() => {
+    async function fun() {
+      try {
+        const update = await Updates.checkForUpdateAsync()
+        if (update.isAvailable) {
+          setUpdate(true)
+          await Updates.fetchUpdateAsync()
+          await Updates.reloadAsync()
+        }
+      } catch (error) {}
+    }
+    fun()
+  }, [])
   return (
     <PaperProvider theme={tema}>
       <NavigationContainer theme={tema as any}>
@@ -30,6 +46,40 @@ const Navigator = () => {
           translucent={false}
         />
         <SafeAreaView style={{ flex: 1 }}>
+          {update && (
+            <>
+              <View
+                style={{
+                  padding: 20,
+                  backgroundColor: theme.colors.background,
+                  borderColor: '#faad14',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  marginBottom: 10,
+                }}
+              >
+                <Text>
+                  Nueva actualización encontrada, presione actualizar para
+                  obtener las nuevas características.
+                </Text>
+                <Button
+                  mode='outlined'
+                  loading
+                  onPress={async () => {
+                    try {
+                      await Updates.fetchUpdateAsync()
+                      // ... notify user of update ...
+                      await Updates.reloadAsync()
+                    } catch (e) {
+                      alert(e)
+                    }
+                  }}
+                >
+                  Actualizando
+                </Button>
+              </View>
+            </>
+          )}
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name='Home' component={Home} />
             <Stack.Screen
@@ -55,6 +105,11 @@ const Navigator = () => {
             <Stack.Screen
               name='TramiteDetail'
               component={Detail}
+              options={{ animation: 'fade_from_bottom' }}
+            />
+            <Stack.Screen
+              name='System'
+              component={System}
               options={{ animation: 'fade_from_bottom' }}
             />
           </Stack.Navigator>

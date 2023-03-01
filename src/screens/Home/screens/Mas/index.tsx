@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useQueryClient } from '@tanstack/react-query'
 import React from 'react'
@@ -5,11 +7,14 @@ import { ScrollView } from 'react-native'
 import { Appbar, Avatar, Divider, List, useTheme } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
 import NoValidated from '~/components/Utils/NoValidated'
+import { RootStackParamList } from '~/screens/Navigator/types'
 import { IRootState } from '~/store/reducers'
 import { IAuthUserAction } from '~/store/reducers/authUser'
 import { IType } from '~/store/reducers/mode'
 const { Item, Icon } = List
 const Mas = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>()
   const user = useSelector<IRootState, IRootState['authUser']>(
     (x) => x.authUser
   )
@@ -66,6 +71,7 @@ const Mas = () => {
           <Item
             title={'Sistema'}
             right={() => <Icon icon={'chevron-right'} />}
+            onPress={() => navigation.navigate('System')}
           />
           <Divider />
           <Item
